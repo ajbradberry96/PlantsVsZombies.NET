@@ -153,12 +153,14 @@ namespace Lawn
             mHasShield = true;
         }
 
+        // Zombies are considered the same if they are on the same x coordinate...
         int IComparable.CompareTo(object toCompare)
         {
             Zombie zombie = (Zombie)toCompare;
             return mX.CompareTo(zombie.mX);
         }
 
+        // Parent Zombie = null
         public void ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Zombie theParentZombie, int theFromWave)
         {
             Debug.ASSERT(theType >= ZombieType.Normal && theType < ZombieType.ZombieTypesCount);
@@ -1059,6 +1061,7 @@ namespace Lawn
                 }
                 return;
             }
+            // Just for animation
             StartEating();
             if ((thePlant.mSeedType == SeedType.Jalapeno || thePlant.mSeedType == SeedType.Cherrybomb || thePlant.mSeedType == SeedType.Doomshroom || thePlant.mSeedType == SeedType.Iceshroom || thePlant.mSeedType == SeedType.Hypnoshroom || thePlant.mState == PlantState.FlowerpotInvulnerable || thePlant.mState == PlantState.LilypadInvulnerable || thePlant.mState == PlantState.SquashLook || thePlant.mState == PlantState.SquashPreLaunch) && !thePlant.mIsAsleep)
             {
@@ -1099,7 +1102,9 @@ namespace Lawn
                     mBoard.AddCoin(thePlant.mX, thePlant.mY, CoinType.Sun, CoinMotion.FromPlant);
                 }
             }
-            thePlant.mPlantHealth -= /*3 * */GameConstants.TICKS_BETWEEN_EATS;
+            // TICKS_BETWEEN_EATS = 4;
+            thePlant.mPlantHealth -= GameConstants.TICKS_BETWEEN_EATS;
+            // Looks like just used for animation and star fruits
             thePlant.mRecentlyEatenCountdown = 50;
             if (mApp.IsIZombieLevel() && mJustGotShotCounter < -500 && (thePlant.mSeedType == SeedType.Wallnut || thePlant.mSeedType == SeedType.Tallnut || thePlant.mSeedType == SeedType.Pumpkinshell))
             {
@@ -3434,7 +3439,6 @@ namespace Lawn
                 }
                 else
                 {
-                    //aSpeed = mVelX * 3f;
                     aSpeed = mVelX;
                     if (IsMovingAtChilledSpeed())
                     {
