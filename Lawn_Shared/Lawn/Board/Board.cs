@@ -1537,17 +1537,14 @@ namespace Lawn
                     {
                         num = 100;
                     }
-                    if (num <= 1)
+                    // Give the poor mowers a break
+                    if (num <= 30)
                     {
-                        mRowPickingArray[i].mWeight = 0.01f;
-                    }
-                    else if (num <= 2)
-                    {
-                        mRowPickingArray[i].mWeight = 0.5f;
+                        mRowPickingArray[i].mWeight = 0.00001f;
                     }
                     else
                     {
-                        mRowPickingArray[i].mWeight = 1f;
+                        mRowPickingArray[i].mWeight = 100f;
                     }
                 }
             }

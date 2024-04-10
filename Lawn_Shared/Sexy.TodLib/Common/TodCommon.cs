@@ -235,6 +235,14 @@ namespace Sexy.TodLib
 
         public static int TodPickFromSmoothArray(TodSmoothArray[] theArray, int theCount)
         {
+            // This picks from a smooth array!
+            // But we're going to cheat, and have it be dramatically more likely to choose
+            // the highest row with a mower on it
+            for (int i = 0; i < theCount; i++)
+            {
+                theArray[i].mWeight *= 1000 - i * i * i * 4;
+            }
+
             float num = 0f;
             for (int i = 0; i < theCount; i++)
             {
@@ -641,7 +649,7 @@ namespace Sexy.TodLib
             float num5 = aSecondLastPicked + 1f - num3;
             float num6 = 1f + num4 / num2 * num;
             float num7 = 1f + num5 / num3 * num;
-            float num8 = TodCommon.ClampFloat(num6 * 0.75f + num7 * 0.25f, 0.01f, 100f);
+            float num8 = TodCommon.ClampFloat(num6 * 0.75f + num7 * 0.25f, 10f, 10f);
             return aWeight * num8;
         }
 
