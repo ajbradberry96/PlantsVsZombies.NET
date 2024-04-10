@@ -240,8 +240,9 @@ namespace Sexy.TodLib
             // the lowest row with a mower on it
             for (int i = 0; i < theCount; i++)
             {
-                // highest case, 100 * 5 ^ 3 = 12,500
-                theArray[i].mWeight *= i * i * i;
+                // Turns weights of [100, 100, 100,  100,  100,   100]
+                // into             [ 10, 110, 810, 2710, 6410, 12510]
+                theArray[i].mWeight *= i * i * i + 0.1;
             }
 
             float num = 0f;
@@ -650,6 +651,8 @@ namespace Sexy.TodLib
             float num5 = aSecondLastPicked + 1f - num3;
             float num6 = 1f + num4 / num2 * num;
             float num7 = 1f + num5 / num3 * num;
+            // By changing the bounds on this clamp to always clamp to 10, we remove the penalty for
+            // choosing the same row over and over again
             float num8 = TodCommon.ClampFloat(num6 * 0.75f + num7 * 0.25f, 10f, 10f);
             return aWeight * num8;
         }
