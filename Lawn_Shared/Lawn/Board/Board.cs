@@ -5005,7 +5005,7 @@ namespace Lawn
                 }
                 else
                 {
-                    mZombieCountDown = GameConstants.ZOMBIE_COUNTDOWN + RandomNumbers.NextNumber(GameConstants.ZOMBIE_COUNTDOWN_RANGE);
+                    mZombieCountDown = GameConstants.ZOMBIE_COUNTDOWN;
                 }
             }
             mZombieCountDownStart = mZombieCountDown;

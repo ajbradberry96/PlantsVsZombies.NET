@@ -2761,29 +2761,29 @@ namespace Lawn
             }
             else if (mBoard.mLevel == 40)
             {
-                Challenge.aSeedPickArray[num2].mItem = 16;
-                Challenge.aSeedPickArray[num2].mWeight = 25;
-                num2++;
-                Challenge.aSeedPickArray[num2].mItem = 24;
+                Challenge.aSeedPickArray[num2].mItem = 16;   // Lilypad
                 Challenge.aSeedPickArray[num2].mWeight = 10;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 31;
+                Challenge.aSeedPickArray[num2].mItem = 24;   // Seashroom
+                Challenge.aSeedPickArray[num2].mWeight = 1;
+                num2++;
+                Challenge.aSeedPickArray[num2].mItem = 31;   // Magnet
+                Challenge.aSeedPickArray[num2].mWeight = 1;
+                num2++;
+                Challenge.aSeedPickArray[num2].mItem = 27;   // Blowver
                 Challenge.aSeedPickArray[num2].mWeight = 5;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 27;
-                Challenge.aSeedPickArray[num2].mWeight = 5;
+                Challenge.aSeedPickArray[num2].mItem = 26;   // Cactus
+                Challenge.aSeedPickArray[num2].mWeight = 1;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 26;
-                Challenge.aSeedPickArray[num2].mWeight = 15;
+                Challenge.aSeedPickArray[num2].mItem = 29;   // Starfruit
+                Challenge.aSeedPickArray[num2].mWeight = 1;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 29;
-                Challenge.aSeedPickArray[num2].mWeight = 25;
+                Challenge.aSeedPickArray[num2].mItem = 28;   // Split Pea
+                Challenge.aSeedPickArray[num2].mWeight = 1;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 28;
-                Challenge.aSeedPickArray[num2].mWeight = 5;
-                num2++;
-                Challenge.aSeedPickArray[num2].mItem = 30;
-                Challenge.aSeedPickArray[num2].mWeight = 10;
+                Challenge.aSeedPickArray[num2].mItem = 30;   // Pumpkin
+                Challenge.aSeedPickArray[num2].mWeight = 50;
                 num2++;
             }
             else if (mApp.IsFinalBossLevel())
@@ -2851,16 +2851,16 @@ namespace Lawn
             }
             else if (mApp.IsStormyNightLevel())
             {
-                Challenge.aSeedPickArray[num2].mItem = 16;
-                Challenge.aSeedPickArray[num2].mWeight = 30;
-                num2++;
-                Challenge.aSeedPickArray[num2].mItem = 26;
+                Challenge.aSeedPickArray[num2].mItem = 16; // Lilypad
                 Challenge.aSeedPickArray[num2].mWeight = 10;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 0;
-                Challenge.aSeedPickArray[num2].mWeight = 20;
+                Challenge.aSeedPickArray[num2].mItem = 26; // Cactus
+                Challenge.aSeedPickArray[num2].mWeight = 1;
                 num2++;
-                Challenge.aSeedPickArray[num2].mItem = 8;
+                Challenge.aSeedPickArray[num2].mItem = 0; // Peashooter
+                Challenge.aSeedPickArray[num2].mWeight = 1;
+                num2++;
+                Challenge.aSeedPickArray[num2].mItem = 8; // 
                 Challenge.aSeedPickArray[num2].mWeight = 15;
                 num2++;
                 Challenge.aSeedPickArray[num2].mItem = 2;
