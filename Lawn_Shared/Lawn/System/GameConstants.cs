@@ -560,7 +560,7 @@ namespace Lawn
             // 植物常量定义
             GameConstants.gPlantDefs = new PlantDefinition[(int)SeedType.SeedTypeCount]
             {
-                /* | SeedType enumeration value | Plant image | Animation track type | Card number | Price | Cooling | Subclass | Emission rate | Name | */
+                /*                | SeedType 枚举值   | 植物图像 |动画轨道类型           |选卡序号|价格|冷却|子类                  |发射速率|名称| */
                 new PlantDefinition(SeedType.Peashooter,    null, ReanimationType.Peashooter,   0,  100,750, PlantSubClass.Shooter, 150, "PEASHOOTER"),
                 new PlantDefinition(SeedType.Sunflower,     null, ReanimationType.Sunflower,    1,  50, 750, PlantSubClass.Normal,  2500, "SUNFLOWER"),
                 new PlantDefinition(SeedType.Cherrybomb,    null, ReanimationType.Cherrybomb,   3,  150,5000,PlantSubClass.Normal,  0, "CHERRY_BOMB"),
@@ -652,7 +652,7 @@ namespace Lawn
             // 僵尸常量定义
             GameConstants.gZombieDefs = new ZombieDefinition[(int)ZombieType.ZombieTypesCount]
             {
-                /*                 | ZombieType Enum value | animation track type | value | first pass | first app wave | weight | name | */
+                /*                 | ZombieType 枚举值        | 动画轨道类型               |价值|首现关|首现波|权重|名称| */
                 new ZombieDefinition(ZombieType.Normal,         ReanimationType.Zombie,         1,  1,  1,  4000, "ZOMBIE"),
                 new ZombieDefinition(ZombieType.Flag,           ReanimationType.Zombie,         1,  1,  1,  0, "FLAG_ZOMBIE"),
                 new ZombieDefinition(ZombieType.TrafficCone,    ReanimationType.Zombie,         2,  3,  1,  4000, "CONEHEAD_ZOMBIE"),

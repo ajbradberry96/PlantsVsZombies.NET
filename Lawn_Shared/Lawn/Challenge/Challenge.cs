@@ -252,7 +252,6 @@ namespace Lawn
             {
                 mBeghouledPurcasedUpgrade[l] = false;
             }
-            /**
             if (mApp.IsSlotMachineLevel())
             {
                 TRect trect = SlotMachineGetHandleRect();
@@ -280,7 +279,6 @@ namespace Lawn
                 }
                 mName = ChallengeScreen.gChallengeDefs[mApp.mGameMode - GameMode.SurvivalNormalStage1].mChallengeName;
             }
-            **/
         }
 
         public bool SaveToFile(Sexy.Buffer b)
@@ -349,7 +347,6 @@ namespace Lawn
                 mChallengeState = ChallengeState.StormFlash1;
                 mChallengeStateCounter = 400;
             }
-            /**
             if (mApp.mGameMode == GameMode.ChallengeBobsledBonanza)
             {
                 for (int i = 0; i < Constants.MAX_GRIDSIZEY; i++)
@@ -380,14 +377,12 @@ namespace Lawn
             {
                 ScaryPotterStart();
             }
-            **/
             if (mApp.IsLittleTroubleLevel() || mApp.IsStormyNightLevel() || mApp.IsBungeeBlitzLevel() || mApp.mGameMode == GameMode.ChallengeInvisighoul)
             {
                 mBoard.mZombieCountDown = 200;
                 mBoard.mZombieCountDownStart = mBoard.mZombieCountDown;
                 mConveyorBeltCounter = 200;
             }
-            /**
             if (mApp.IsSurvivalMode() && mSurvivalStage == 0)
             {
                 string theAdvice = string.Empty;
@@ -442,7 +437,6 @@ namespace Lawn
                     mBoard.DisplayAdvice("[ADVICE_BEGHOULED_TWIST_TO_MATCH_3]", MessageStyle.HintFast, AdviceType.None);
                 }
             }
-            **/
             if (mApp.IsFirstTimeAdventureMode())
             {
                 mApp.IsSquirrelLevel();
@@ -457,7 +451,6 @@ namespace Lawn
             {
                 GameMode aGameMode = mApp.mGameMode;
             }
-            /**
             if (mApp.mGameMode == GameMode.ChallengePortalCombat)
             {
                 PortalStart();
@@ -487,10 +480,8 @@ namespace Lawn
             {
                 SquirrelStart();
             }
-            **/
         }
 
-        /**
         public void BeghouledPopulateBoard()
         {
             BeghouledBoardState newBeghouledBoardState = BeghouledBoardState.GetNewBeghouledBoardState();
@@ -931,15 +922,12 @@ namespace Lawn
             }
         }
 
-        **/
-
         public void Update()//1update
         {
             if (mApp.IsStormyNightLevel())
             {
                 UpdateStormyNight();
             }
-            /**
             if (mBoard.mPaused)
             {
                 if (mApp.mGameMode == GameMode.ChallengeBeghouledTwist)
@@ -957,12 +945,10 @@ namespace Lawn
             {
                 return;
             }
-            **/
             if (mBoard.HasConveyorBeltSeedBank())
             {
                 UpdateConveyorBelt();
             }
-            /**
             if (mApp.mGameMode == GameMode.ChallengeBeghouled || mApp.mGameMode == GameMode.ChallengeBeghouledTwist)
             {
                 UpdateBeghouled();
@@ -1025,10 +1011,8 @@ namespace Lawn
             {
                 reanimation.Update();
             }
-            **/
         }
 
-        /**
         public void UpdateBeghouled()
         {
             mBoard.mProgressMeterWidth = TodCommon.TodAnimateCurve(0, GameConstants.BEGHOULED_WINNING_SCORE, mChallengeScore, 0, GameConstants.PROGRESS_METER_COUNTER, TodCurves.Linear);
@@ -1548,7 +1532,7 @@ namespace Lawn
                 i--;
             }
         }
-        **/
+
         public void InitZombieWavesFromList(ZombieType[] theZombieList, int theListLength)
         {
             for (int i = 0; i < theListLength; i++)
@@ -1586,7 +1570,6 @@ namespace Lawn
                     InitZombieWavesSurvival();
                 }
             }
-            /**
             else if (mApp.mGameMode == GameMode.ChallengeSpeed)
             {
                 ZombieType[] array3 = new ZombieType[]
@@ -1804,7 +1787,6 @@ namespace Lawn
                 };
                 InitZombieWavesFromList(array21, array21.Length);
             }
-            **/
             else if (mApp.mGameMode == GameMode.ChallengeWallnutBowling || mApp.IsAdventureMode() || mApp.IsQuickPlayMode())
             {
                 ZombieType[] array22 = new ZombieType[]
@@ -1817,7 +1799,6 @@ namespace Lawn
                 };
                 InitZombieWavesFromList(array22, array22.Length);
             }
-            /**
             else if (mApp.mGameMode == GameMode.ChallengeWallnutBowling2)
             {
                 ZombieType[] array23 = new ZombieType[]
@@ -1857,10 +1838,8 @@ namespace Lawn
             {
                 mBoard.mZombieAllowed[19] = true;
             }
-            **/
         }
 
-        /**
         public void UpdateSlotMachine()
         {
             int num = TodCommon.ClampInt(mBoard.mSunMoney, 0, GameConstants.SLOT_MACHINE_WINNING_SCORE);
@@ -2143,9 +2122,7 @@ namespace Lawn
                 mChallengeStateCounter = 0;
             }
         }
-        **/
-        
-        // Always returns false
+
         public bool UpdateZombieSpawning()//3update
         {
             if (mApp.IsWhackAZombieLevel())
@@ -2153,10 +2130,9 @@ namespace Lawn
                 WhackAZombieSpawning();
                 return true;
             }
-            
             return mApp.IsFinalBossLevel() || mApp.mGameMode == GameMode.ChallengeIce || mApp.mGameMode == GameMode.ChallengeZenGarden || mApp.mGameMode == GameMode.TreeOfWisdom || mApp.mGameMode == GameMode.ChallengeZombiquarium || mApp.IsIZombieLevel() || mApp.IsSquirrelLevel() || mApp.IsScaryPotterLevel() || (mApp.mGameMode == GameMode.ChallengeLastStand && mChallengeState != ChallengeState.LastStandOnslaught);
         }
-        /**
+
         public void BeghouledClearCrater(int theCount)
         {
             mBoard.ClearAdvice(AdviceType.BeghouledUseCrater1);
@@ -2321,7 +2297,6 @@ namespace Lawn
             }
         }
 
-        **/
         public void InitLevel()
         {
             if (mApp.mGameMode == GameMode.ChallengeRainingSeeds)
@@ -2335,7 +2310,6 @@ namespace Lawn
                 mChallengeStateCounter = 150;
                 mApp.PlayFoley(FoleyType.Rain);
             }
-            /**
             if (mApp.IsFinalBossLevel())
             {
                 mBoard.mSeedBank.AddSeed(SeedType.Cabbagepult);
@@ -2384,12 +2358,10 @@ namespace Lawn
                 mChallengeGridX = -1;
                 mChallengeGridY = -1;
             }
-            **/
         }
 
         public void SpawnZombieWave()
         {
-            /**
             if (mApp.IsContinuousChallenge() && mBoard.mCurrentWave == mBoard.mNumWaves)
             {
                 mBoard.mCurrentWave = mBoard.mNumWaves - 1;
@@ -2406,9 +2378,7 @@ namespace Lawn
                     }
                 }
             }
-
             bool flag = mBoard.IsFlagWave(mBoard.mCurrentWave);
-            
             if (mApp.mGameMode == GameMode.ChallengeGraveDanger && mBoard.mCurrentWave != mBoard.mNumWaves - 1)
             {
                 if (flag)
@@ -2439,10 +2409,8 @@ namespace Lawn
             {
                 mBoard.DisplayAdvice("[ADVICE_BUNGEES_INCOMING]", MessageStyle.HintFast, AdviceType.None);
             }
-            **/
         }
 
-        /**
         public void GraveDangerSpawnRandomGrave()
         {
             TodWeightedGridArray[] array = new TodWeightedGridArray[Constants.GRIDSIZEX * Constants.MAX_GRIDSIZEY];
@@ -2666,12 +2634,6 @@ namespace Lawn
             mBoard.AddZombie(ZombieType.Boss, 0);
         }
 
-        **/
-
-        // Takeaways:
-        //  - The fewer seeds on the belt, the better!
-        //  - If we're on top of that, counter will always equal 400
-        //  - counter decrements by 1 every update
         public void UpdateConveyorBelt()
         {
             if (mBoard.HasLevelAwardDropped())
@@ -2689,7 +2651,6 @@ namespace Lawn
             {
                 num = 0.875f;
             }
-            /**
             else if (mApp.IsShovelLevel() || mApp.mGameMode == GameMode.ChallengePortalCombat)
             {
                 num = 1.5f;
@@ -2702,7 +2663,6 @@ namespace Lawn
             {
                 num = 3f;
             }
-            **/
             if (mBoard.mSeedBank.GetNumSeedsOnConveyorBelt() > 8)
             {
                 mConveyorBeltCounter = 1000 * (int)num;
@@ -2748,7 +2708,6 @@ namespace Lawn
                 Challenge.aSeedPickArray[num2].mWeight = 10;
                 num2++;
             }
-            /**
             else if (mBoard.mLevel == 20)
             {
                 Challenge.aSeedPickArray[num2].mItem = 11;
@@ -2800,7 +2759,6 @@ namespace Lawn
                 Challenge.aSeedPickArray[num2].mWeight = 10;
                 num2++;
             }
-            **/
             else if (mBoard.mLevel == 40)
             {
                 Challenge.aSeedPickArray[num2].mItem = 16;
@@ -2828,7 +2786,6 @@ namespace Lawn
                 Challenge.aSeedPickArray[num2].mWeight = 10;
                 num2++;
             }
-            /**
             else if (mApp.IsFinalBossLevel())
             {
                 Challenge.aSeedPickArray[num2].mItem = 33;
@@ -2992,7 +2949,6 @@ namespace Lawn
             {
                 Debug.ASSERT(false);
             }
-            **/
             Debug.ASSERT(num2 <= 20);
             int j = 0;
             SeedType seedType;
@@ -3081,7 +3037,6 @@ namespace Lawn
             mLastConveyorSeedType = seedType;
         }
 
-        /**
         public void PortalStart()
         {
             mChallengeStateCounter = 9000;
@@ -5858,8 +5813,7 @@ namespace Lawn
         {
             mApp.KillDialog(4);
         }
-        **/
-        
+
         private const int MAX_SPAWNING_SEED_TYPES = 20;
 
         public static SeedType[,] gArtChallengeWallnut;
