@@ -237,10 +237,11 @@ namespace Sexy.TodLib
         {
             // This picks from a smooth array!
             // But we're going to cheat, and have it be dramatically more likely to choose
-            // the highest row with a mower on it
+            // the lowest row with a mower on it
             for (int i = 0; i < theCount; i++)
             {
-                theArray[i].mWeight *= 1000 - i * i * i * 4;
+                // highest case, 100 * 5 ^ 3 = 12,500
+                theArray[i].mWeight *= i * i * i;
             }
 
             float num = 0f;
