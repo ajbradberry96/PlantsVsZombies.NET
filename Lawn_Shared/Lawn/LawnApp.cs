@@ -794,6 +794,8 @@ namespace Lawn
         internal override void NewGame()
         {
             mFirstTimeGameSelector = false;
+            mPlayerInfo.SetLevel(40);
+            mPlayerInfo.AddCoins(10000);
             MakeNewBoard();
             mBoard.InitLevel();
             mBoardResult = BoardResult.None;

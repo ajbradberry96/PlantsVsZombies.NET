@@ -1544,7 +1544,7 @@ namespace Lawn
                     }
                     else
                     {
-                        mRowPickingArray[i].mWeight = 100f;
+                        mRowPickingArray[i].mWeight = 1000f;
                     }
                 }
             }

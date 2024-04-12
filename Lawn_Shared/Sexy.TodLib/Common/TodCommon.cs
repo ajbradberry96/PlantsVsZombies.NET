@@ -242,7 +242,7 @@ namespace Sexy.TodLib
             {
                 // Turns weights of [100, 100, 100,  100,  100,   100]
                 // into             [ 10, 110, 810, 2710, 6410, 12510]
-                theArray[i].mWeight *= i * i * i + 0.1;
+                theArray[i].mWeight *= i * i * i * i * i * i * i + 0.1f;
             }
 
             float num = 0f;
