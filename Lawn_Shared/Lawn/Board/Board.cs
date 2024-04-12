@@ -7,7 +7,6 @@ namespace Lawn
 {
     public/*internal*/ class Board : Widget, ButtonListener
     {
-        // TODO: Shenanigans?
         public bool LoadFromFile(Sexy.Buffer b)
         {
             this.doAddGraveStones = false;
@@ -230,7 +229,6 @@ namespace Lawn
             return true;
         }
 
-        /**
         static Board()
         {
             for (int i = 0; i < Board.aZombieWeightArray.Length; i++)
@@ -281,10 +279,7 @@ namespace Lawn
             mX = Constants.Board_Offset_AspectRatio_Correction;
             SetFullRect();
         }
-        **/
-        
-        // Nothing particularly exciting in here
-        // Note, randseed is set to theApp.mAppRandSeed, mAppRandSeed = DateTime.UtcNow.Millisecond;;
+
         public Board(LawnApp theApp)
         {
             SetupRenderItems();
@@ -311,7 +306,6 @@ namespace Lawn
             mCutScene = new CutScene();
             mSpecialGraveStoneX = -1;
             mSpecialGraveStoneY = -1;
-            // Not interesting.
             for (int i = 0; i < Constants.GRIDSIZEX; i++)
             {
                 for (int j = 0; j < Constants.MAX_GRIDSIZEY; j++)
@@ -446,7 +440,6 @@ namespace Lawn
             }
         }
 
-        /**
         public override void Dispose()
         {
             mAdvice.Dispose();
@@ -945,8 +938,6 @@ namespace Lawn
             }
         }
 
-        **/
-        // Does what it says on the tin
         public bool AreEnemyZombiesOnScreen()
         {
             int count = mZombies.Count;
@@ -961,7 +952,6 @@ namespace Lawn
             return false;
         }
 
-        /**
         public LawnMower FindLawnMowerInRow(int theRow)
         {
             LawnMower lawnMower = null;
@@ -992,10 +982,6 @@ namespace Lawn
             return true;
         }
 
-        **/
-        
-        // Only interesting bits:
-        //  - InitZombieWaves() called
         public void InitLevel()
         {
             mMainCounter = 0;
@@ -1015,7 +1001,6 @@ namespace Lawn
             {
                 mLevel = mApp.mPlayerInfo.GetLevel();
             }
-            /**
             else if (mApp.IsQuickPlayMode())
             {
                 mLevel = mApp.mGameMode - GameMode.Quickplay1 + 1;
@@ -1024,7 +1009,6 @@ namespace Lawn
             {
                 mLevel = 0;
             }
-            **/
             mLevelStr = TodStringFile.TodStringTranslate("[LEVEL]") + " " + mApp.GetStageString(mLevel);
             PickBackground();
             mCurrentWave = 0;
@@ -1033,7 +1017,6 @@ namespace Lawn
             {
                 mSunMoney = 0;
             }
-            /**
             else if (mApp.mGameMode == GameMode.ChallengeLastStand)
             {
                 mSunMoney = 5000;
@@ -1046,7 +1029,6 @@ namespace Lawn
             {
                 mSunMoney = 150;
             }
-            **/
             else
             {
                 mSunMoney = 50;
@@ -1082,7 +1064,6 @@ namespace Lawn
                 seedPacket.mX = 0;
                 seedPacket.mPacketType = SeedType.None;
             }
-            /**
             if (mApp.IsSlotMachineLevel())
             {
                 Debug.ASSERT(mSeedBank.mNumPackets == 3);
@@ -1215,7 +1196,6 @@ namespace Lawn
                     seedPacket2.SetPacketType((SeedType)m, SeedType.None);
                 }
             }
-            **/
             mWidgetManager.MarkAllDirty();
             mPaused = false;
             mOutOfMoneyCounter = 0;
@@ -1229,8 +1209,6 @@ namespace Lawn
             Board.needToSortRenderList = true;
         }
 
-        /**
-        // Boring
         private void SetupRenderItems()
         {
             for (int i = 0; i < aRenderList.Length; i++)
@@ -1262,10 +1240,6 @@ namespace Lawn
             mHelpIndex = theHelpIndex;
         }
 
-        **/
-
-        // Only interesting bits:
-        //  - Calls mChallenge.StartLevel();
         public void StartLevel()
         {
             mCoinBankFadeCount = 0;
@@ -1296,7 +1270,6 @@ namespace Lawn
             }
         }
 
-        /**
         public Plant AddPlant(int theGridX, int theGridY, SeedType theSeedType, SeedType theImitaterType)
         {
             Plant plant = NewPlant(theGridX, theGridY, theSeedType, theImitaterType);
@@ -1451,11 +1424,6 @@ namespace Lawn
             return (ZombieType)TodCommon.TodPickFromWeightedArray(Board.aZombieWeightArray, num);
         }
 
-        **/
-        
-        // Picks zombie types.
-        // Checks if allowed on level AND IF THE WAVE IS AFTER WHERE THEY'RE ALLOWED ACCORDING TO DEFINITION
-        // Looks like it can be anything we want, whenever we want, if it has a nonzero weight!
         public ZombieType PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePicker theZombiePicker)
         {
             int num = 0;
@@ -1481,7 +1449,6 @@ namespace Lawn
                             int num3 = TodCommon.TodAnimateCurve(18, 50, survivalFlagsCompleted, 0, 15, TodCurves.Linear);
                             num2 = Math.Max(num2 - num3, 1);
                         }
-                        // Important!!
                         if (theWaveIndex + 1 < num2 || theZombiePoints < zombieDefinition.mZombieValue)
                         {
                             continue;
@@ -1536,7 +1503,6 @@ namespace Lawn
             return (ZombieType)TodCommon.TodPickFromWeightedArray(Board.aZombieWeightArray, num);
         }
 
-        // Completely random legal row!!!
         public int PickRowForNewZombie(ZombieType theZombieType)
         {
             if (theZombieType == ZombieType.Boss)
@@ -1544,7 +1510,6 @@ namespace Lawn
                 return 0;
             }
             GridItem rake = GetRake();
-            // Rake attracts first zombie, if there is one
             if (rake != null && rake.mGridItemState == GridItemState.RakeAttracting && RowCanHaveZombieType(rake.mGridY, theZombieType))
             {
                 rake.mGridItemState = GridItemState.RakeWaiting;
@@ -1557,7 +1522,6 @@ namespace Lawn
                 {
                     mRowPickingArray[i].mWeight = 0f;
                 }
-                /**
                 else if (mApp.mGameMode == GameMode.ChallengePortalCombat)
                 {
                     mRowPickingArray[i].mWeight = mChallenge.PortalCombatRowSpawnWeight(i);
@@ -1566,7 +1530,6 @@ namespace Lawn
                 {
                     mRowPickingArray[i].mWeight = 0f;
                 }
-                **/
                 else
                 {
                     int num = mCurrentWave - mWaveRowGotLawnMowered[i];
@@ -1574,18 +1537,14 @@ namespace Lawn
                     {
                         num = 100;
                     }
-                    // A mower will keep Zombie off of row for a lil while
-                    if (num <= 1)
+                    // Give the poor mowers a break
+                    if (num <= 30)
                     {
-                        mRowPickingArray[i].mWeight = 0.01f;
-                    }
-                    else if (num <= 2)
-                    {
-                        mRowPickingArray[i].mWeight = 0.5f;
+                        mRowPickingArray[i].mWeight = 0.00001f;
                     }
                     else
                     {
-                        mRowPickingArray[i].mWeight = 1f;
+                        mRowPickingArray[i].mWeight = 1000f;
                     }
                 }
             }
@@ -1935,7 +1894,6 @@ namespace Lawn
             }
         }
 
-        /**
         public override void MouseMove(int x, int y)
         {
             //base.MouseMove(x, y);
@@ -3094,18 +3052,19 @@ namespace Lawn
                 }
             }
         }
-        **/
-        
+
         public override void Update()//3update
         {
             base.Update();
             MarkDirty();
+            //mCutScene.Update(false);
+            //mCutScene.Update(false);
             mCutScene.Update(/*true*/);
-            /**
             if (mApp.mGameMode == GameMode.ChallengeZenGarden)
             {
-
-                mApp.mZenGarden.ZenGardenUpdate();
+                //mApp.mZenGarden.ZenGardenUpdate(0);
+                //mApp.mZenGarden.ZenGardenUpdate(1);
+                mApp.mZenGarden.ZenGardenUpdate(/*2*/);
                 mApp.UpdateCrazyDave();
             }
             if (IsScaryPotterDaveTalking())
@@ -3134,6 +3093,8 @@ namespace Lawn
             }
             mApp.mEffectSystem.Update();
             mAdvice.Update();
+            //UpdateTutorial();
+            //UpdateTutorial();
             UpdateTutorial();
             if (mCobCannonCursorDelayCounter > 0)
             {
@@ -3170,9 +3131,12 @@ namespace Lawn
                 //mLevelFadeCount -= 3;
                 mLevelFadeCount--;
             }
-            **/
             UpdateLayers();
             if (mTimeStopCounter > 0)
+            {
+                return;
+            }
+            //mEffectCounter += 3;
             mEffectCounter++;
             if (StageHasPool() && mPoolSparklyParticleID == null)
             {
@@ -3183,14 +3147,19 @@ namespace Lawn
             UpdateGridItems();
             UpdateFwoosh();
             UpdateGame();
+            //UpdateFog();
+            //UpdateFog();
             UpdateFog();
+            //mChallenge.Update();
+            //mChallenge.Update();
             mChallenge.Update();
+            //UpdateLevelEndSequence();
+            //UpdateLevelEndSequence();
             UpdateLevelEndSequence();
             mPrevMouseX = mApp.mWidgetManager.mLastMouseX;
             mPrevMouseY = mApp.mWidgetManager.mLastMouseY;
         }
 
-        /**
         public void UpdateLayers()//3update
         {
             if (mWidgetManager != null)
@@ -3334,7 +3303,7 @@ namespace Lawn
 
         public void DrawCursorOnBackground(Graphics g)
         {
-            if (mTimeStopCounter == 0 && (!mApp.IsWhackAZombieLevel() || mCursorObject.mCursorType != CursorType.Hammer) && mLastToolX >= Constants.LAWN_XMIN * Constants.S && mCursorObject.BeginDraw(g))
+            if (mTimeStopCounter == 0 && (!mApp.IsWhackAZombieLevel() || mCursorObject.mCursorType != CursorType.Hammer) /*&& mIsDown */&& mLastToolX >= Constants.LAWN_XMIN * Constants.S && mCursorObject.BeginDraw(g))
             {
                 mCursorObject.DrawGroundLayer(g);
                 mCursorObject.EndDraw(g);
@@ -3343,7 +3312,7 @@ namespace Lawn
 
         public void DrawCursorOverlay(Graphics g)
         {
-            if (mTimeStopCounter == 0 && mCursorObject.BeginDraw(g))
+            if (mTimeStopCounter == 0 /*&& mIsDown && (mLastToolX >= Constants.LAWN_XMIN * Constants.S || mApp.mGameMode == GameMode.ChallengeZenGarden)*/ && mCursorObject.BeginDraw(g))
             {
                 mCursorObject.DrawTopLayer(g);
                 mCursorObject.EndDraw(g);
@@ -3702,8 +3671,6 @@ namespace Lawn
             return Math.Max(PixelToGridY(theX2, theY), 0);
         }
 
-        **/
-
         public void UpdateGameObjects()//3update
         {
             int count = mPlants.Count;
@@ -3724,7 +3691,6 @@ namespace Lawn
                     zombie.Update();
                 }
             }
-            /**
             count = mProjectiles.Count;
             for (int k = 0; k < count; k++)
             {
@@ -3739,13 +3705,11 @@ namespace Lawn
             {
                 coin.Update();
             }
-            **/
             LawnMower lawnMower = null;
             while (IterateLawnMowers(ref lawnMower))
             {
                 lawnMower.Update();
             }
-            /**
             mCursorPreview.Update();
             mCursorObject.Update();
             for (int l = 0; l < mSeedBank.mNumPackets; l++)
@@ -3755,10 +3719,8 @@ namespace Lawn
                 //seedPacket.Update();
                 seedPacket.Update();
             }
-            **/
         }
 
-        /**
         public bool MouseHitTest(int x, int y, out HitResult theHitResult, bool posScaled)
         {
             if (!posScaled)
@@ -4564,7 +4526,7 @@ namespace Lawn
                 return null;
             }
         }
-        **/
+
         public void GetPlantsOnLawn(int theGridX, int theGridY, ref PlantsOnLawn thePlantOnLawn)
         {
             thePlantOnLawn.mUnderPlant = null;
@@ -4645,8 +4607,7 @@ namespace Lawn
             IL_19D:;
             }
         }
-        /**
-        
+
         public int CountSunFlowers()
         {
             int num = 0;
@@ -4711,9 +4672,6 @@ namespace Lawn
             return num;
         }
 
-        **/
-
-        /**
         public void ZombiesWon(Zombie aZombie)
         {
             if (mApp.mGameScene == GameScenes.ZombiesWon)
@@ -4895,11 +4853,9 @@ namespace Lawn
                 DrawZenButtons(g);
             }
         }
-        **/
-        
+
         public void UpdateZombieSpawning()
         {
-            /**
             if (mApp.mGameMode == GameMode.Upsell || mApp.mGameMode == GameMode.Intro)
             {
                 return;
@@ -4932,22 +4888,26 @@ namespace Lawn
                     SpawnZombiesFromGraves();
                 }
             }
-            **/
             if (mHugeWaveCountDown > 0)
             {
+                //mHugeWaveCountDown -= 3;
                 mHugeWaveCountDown--;
+                //if (mHugeWaveCountDown >= 0 && mHugeWaveCountDown < 3)
                 if (mHugeWaveCountDown == 0)
                 {
                     ClearAdvice(AdviceType.HugeWave);
                     NextWaveComing();
+                    //mZombieCountDown = 3;
                     mZombieCountDown = 1;
                 }
                 else
                 {
+                    //if (mHugeWaveCountDown < 723 || mHugeWaveCountDown >= 726)
                     if (mHugeWaveCountDown != 726)
                     {
                         if (mApp.mMusic.mCurMusicTune == MusicTune.DayGrasswalk || mApp.mMusic.mCurMusicTune == MusicTune.PoolWaterygraves || mApp.mMusic.mCurMusicTune == MusicTune.FogRigormormist || mApp.mMusic.mCurMusicTune == MusicTune.RoofGrazetheroof)
                         {
+                            //if (mHugeWaveCountDown == 399)
                             if (mHugeWaveCountDown == 400)
                             {
                                 return;
@@ -4962,12 +4922,10 @@ namespace Lawn
                     mApp.PlaySample(Resources.SOUND_HUGE_WAVE);
                 }
             }
-            // Always false
             if (mChallenge.UpdateZombieSpawning())
             {
                 return;
             }
-            /**
             if (mCurrentWave == mNumWaves)
             {
                 if (IsFinalSurvivalStage())
@@ -4983,7 +4941,7 @@ namespace Lawn
                     return;
                 }
             }
-            **/
+            //mZombieCountDown -= 3;
             mZombieCountDown--;
             if (mCurrentWave == mNumWaves && mApp.IsSurvivalMode())
             {
@@ -4994,19 +4952,18 @@ namespace Lawn
                 }
                 return;
             }
-            // These are initially sync'd, so num2 will hold the ticks since the last start of wave
             int num2 = mZombieCountDownStart - mZombieCountDown;
-            // ZOMBIE_COUNTDOWN_MIN => 400
-            // As long as at least 400 ticks have passed...
             if (mZombieCountDown > 5 && num2 > GameConstants.ZOMBIE_COUNTDOWN_MIN)
             {
-                // If you reach the health milestone, automatically jump to 200 ticks remaining
                 int num3 = TotalZombiesHealthInWave(mCurrentWave - 1);
+                //if (num3 <= mZombieHealthToNextWave && mZombieCountDown > 201)
                 if (num3 <= mZombieHealthToNextWave && mZombieCountDown > 200)
                 {
+                    //mZombieCountDown = 201;
                     mZombieCountDown = 200;
                 }
             }
+            //if (mZombieCountDown >= 5 && mZombieCountDown < 8)
             if (mZombieCountDown == 5)
             {
                 if (IsFlagWave(mCurrentWave))
@@ -5018,6 +4975,7 @@ namespace Lawn
                 }
                 NextWaveComing();
             }
+            //if (mZombieCountDown < 0 || mZombieCountDown >= 3)
             if (mZombieCountDown != 0)
             {
                 return;
@@ -5037,7 +4995,6 @@ namespace Lawn
             }
             else
             {
-                // Health - between 50 and 65% of health in wave
                 mZombieHealthToNextWave = (int)(TodCommon.RandRangeFloat(0.5f, 0.65f) * mZombieHealthWaveStart);
                 if (mApp.IsLittleTroubleLevel() || mApp.mGameMode == GameMode.ChallengeColumn || mApp.mGameMode == GameMode.ChallengeLastStand)
                 {
@@ -5045,14 +5002,12 @@ namespace Lawn
                 }
                 else
                 {
-                    // ZOMBIE_COUNDOWN = 2500, ZOMBIE_COUNTDOWN_RANGE = 600
-                    mZombieCountDown = GameConstants.ZOMBIE_COUNTDOWN + RandomNumbers.NextNumber(GameConstants.ZOMBIE_COUNTDOWN_RANGE);
+                    mZombieCountDown = GameConstants.ZOMBIE_COUNTDOWN;
                 }
             }
             mZombieCountDownStart = mZombieCountDown;
         }
 
-        /**
         public void UpdateSunSpawning()//3update
         {
             if (StageIsNight())
@@ -5101,7 +5056,7 @@ namespace Lawn
             mAdvice.ClearLabel();
             mHelpIndex = AdviceType.None;
         }
-        **/
+
         public bool RowCanHaveZombieType(int theRow, ZombieType theZombieType)
         {
             if (!RowCanHaveZombies(theRow))
@@ -5161,7 +5116,6 @@ namespace Lawn
             return num;
         }
 
-        /**
         public void DrawUICoinBank(Graphics g)
         {
             g.SetDrawMode(Graphics.DrawMode.DRAWMODE_NORMAL);
@@ -5572,9 +5526,7 @@ namespace Lawn
             }
             return null;
         }
-                **/
-        
-        // initializes to empty but doesnt reset mAllWavesZombieTypeCount
+
         public static void ZombiePickerInitForWave(ZombiePicker theZombiePicker)
         {
             theZombiePicker.mZombieCount = 0;
@@ -5585,7 +5537,6 @@ namespace Lawn
             }
         }
 
-        // Same as above but DOES reset mAllWavesZombieTypeCount
         public static void ZombiePickerInit(ZombiePicker theZombiePicker)
         {
             Board.ZombiePickerInitForWave(theZombiePicker);
@@ -5595,7 +5546,6 @@ namespace Lawn
             }
         }
 
-        /**
         public void UpdateIce()//3update
         {
             for (int i = 0; i < Constants.MAX_GRIDSIZEY; i++)
@@ -5640,9 +5590,7 @@ namespace Lawn
             mShakeAmountX = theShakeAmountX;
             mShakeAmountY = theShakeAmountY;
         }
-        **/
-        
-        // Does what it says on the tin
+
         public int CountUntriggerLawnMowers()
         {
             int num = 0;
@@ -5657,7 +5605,6 @@ namespace Lawn
             return num;
         }
 
-        // IterateX checks if the X exists in  mX after index
         public bool IterateZombies(ref Zombie theZombie, ref int index)
         {
             if (index == -1 || index >= mZombies.Count)
@@ -5692,7 +5639,6 @@ namespace Lawn
             return false;
         }
 
-        /**
         public bool IterateProjectiles(ref Projectile theProjectile, ref int index)
         {
             if (index == -1 || index >= mProjectiles.Count)
@@ -5724,8 +5670,6 @@ namespace Lawn
             return false;
         }
 
-        **/
-
         public bool IterateLawnMowers(ref LawnMower theLawnMower)
         {
             int num = mLawnMowers.IndexOf(theLawnMower);
@@ -5740,7 +5684,6 @@ namespace Lawn
             return false;
         }
 
-        /**
         public bool IterateParticles(ref TodParticleSystem theParticle, ref int index)
         {
             if (index == -1 || index >= mApp.mEffectSystem.mParticleHolder.mParticleSystems.Count)
@@ -5774,8 +5717,7 @@ namespace Lawn
             }
             return false;
         }
-        **/
-        
+
         public bool IterateGridItems(ref GridItem theGridItem, ref int index)
         {
             if (index == -1 || index >= mGridItems.Count)
@@ -5793,7 +5735,6 @@ namespace Lawn
             return false;
         }
 
-        /**
         public void ZombieSwitchRow(Zombie aZombie, int aRow)
         {
             List<Zombie> zombiesInRow = GetZombiesInRow(aZombie.mRow);
@@ -5801,8 +5742,7 @@ namespace Lawn
             zombiesInRow.Remove(aZombie);
             zombiesInRow2.Add(aZombie);
         }
-        **/
-        
+
         public void SortZombieRowLists()
         {
             mZombiesRow1.Sort();
@@ -5863,24 +5803,18 @@ namespace Lawn
 
         public Zombie AddZombieInRow(ZombieType theZombieType, int theRow, int theFromWave)
         {
-            /**
             if (mZombies.Count >= mZombies.Capacity - 1)
             {
                 //return null;
             }
-            **/
-            // Don't get spooked by this, literally only impacts gfx
             bool theVariant = false;
-            /**
             if (RandomNumbers.NextNumber(5) == 0)
             {
                 theVariant = true;
             }
-            **/
             Zombie newZombie = Zombie.GetNewZombie();
             newZombie.ZombieInitialize(theRow, theZombieType, theVariant, null, theFromWave);
             AddToZombieList(newZombie);
-            /**
             if (theZombieType == ZombieType.Bobsled && newZombie.IsOnBoard())
             {
                 Zombie newZombie2 = Zombie.GetNewZombie();
@@ -5893,7 +5827,6 @@ namespace Lawn
                 newZombie3.ZombieInitialize(theRow, ZombieType.Bobsled, false, newZombie, theFromWave);
                 newZombie4.ZombieInitialize(theRow, ZombieType.Bobsled, false, newZombie, theFromWave);
             }
-            **/
             return newZombie;
         }
 
@@ -5904,7 +5837,6 @@ namespace Lawn
 
         public void PickZombieWaves()
         {
-            // This function generates zombie infossss
             if ((mApp.IsAdventureMode() || mApp.IsQuickPlayMode()) && mApp.IsWhackAZombieLevel())
             {
                 mNumWaves = 8;
@@ -5912,7 +5844,6 @@ namespace Lawn
             else if (mApp.IsAdventureMode() || mApp.IsQuickPlayMode())
             {
                 int num = TodCommon.ClampInt(mLevel - 1, 0, 49);
-                // mNumWaves is 20 for our level
                 mNumWaves = GameConstants.gZombieWaves[num];
                 if (!mApp.IsFirstTimeAdventureMode() && !mApp.IsMiniBossLevel())
                 {
@@ -5926,7 +5857,6 @@ namespace Lawn
                     }
                 }
             }
-            /**
             else if (mApp.IsSurvivalMode() || mApp.mGameMode == GameMode.ChallengeLastStand)
             {
                 mNumWaves = GetNumWavesPerSurvivalStage();
@@ -5951,24 +5881,15 @@ namespace Lawn
             {
                 mNumWaves = 40;
             }
-            **/
-            // Not important, just initializes some empty objects
             ZombiePicker zombiePicker = new ZombiePicker();
             Board.ZombiePickerInit(zombiePicker);
-            /**
-            // Don't have to worry about this, no zombies introduced here
             ZombieType introducedZombieType = GetIntroducedZombieType();
-            // Don't get excited, we're way below this
             Debug.ASSERT(mNumWaves <= GameConstants.MAX_ZOMBIE_WAVES);
-            **/
 
-            // This is the meat - how many zombies per wave?
             for (int i = 0; i < mNumWaves; i++)
             {
-                // Not important, just initializes some empty objects
                 Board.ZombiePickerInitForWave(zombiePicker);
                 mZombiesInWave[i, 0] = ZombieType.Invalid;
-                // TODO: Ignore this for now, though there are two flag waves total
                 bool isFlagWave = IsFlagWave(i);
                 bool isBeforeLastWave = i == mNumWaves - 1;
                 if (mApp.IsBungeeBlitzLevel() && isFlagWave)
@@ -5986,7 +5907,6 @@ namespace Lawn
                         continue;
                     }
                 }
-                /**
                 if (mApp.mGameMode == GameMode.ChallengeLastStand)
                 {
                     zombiePicker.mZombiePoints = (mChallenge.mSurvivalStage * GetNumWavesPerSurvivalStage() + i + 10) * 2 / 5 + 1;
@@ -5999,13 +5919,10 @@ namespace Lawn
                 {
                     zombiePicker.mZombiePoints = i * 2 / 5 + 1;
                 }
-                                **/
-                // This is the case
                 else
                 {
                     zombiePicker.mZombiePoints = i / 3 + 1;
                 }
-                // TODO: Come back to this too
                 if (isFlagWave)
                 {
                     int num2 = Math.Min(zombiePicker.mZombiePoints, 8);
@@ -6023,18 +5940,14 @@ namespace Lawn
                 {
                     zombiePicker.mZombiePoints *= 6;
                 }
-                /**
                 else if (mApp.IsLittleTroubleLevel() || mApp.IsWallnutBowlingLevel())
                 {
                     zombiePicker.mZombiePoints *= 4;
                 }
-                // It is not, believe it or not!
                 else if (mApp.IsMiniBossLevel())
                 {
                     zombiePicker.mZombiePoints *= 3;
                 }
-                **/
-                // But it is this :(
                 else if (mApp.IsStormyNightLevel() && (mApp.IsAdventureMode() || mApp.IsQuickPlayMode()))
                 {
                     zombiePicker.mZombiePoints *= 3;
@@ -6043,7 +5956,6 @@ namespace Lawn
                 {
                     zombiePicker.mZombiePoints *= 2;
                 }
-                // Our introduced zombie is invalid, so don't worry about this
                 if (introducedZombieType != ZombieType.Invalid && introducedZombieType != ZombieType.DuckyTube)
                 {
                     bool flag3 = false;
@@ -6074,7 +5986,6 @@ namespace Lawn
                 {
                     PutZombieInWave(ZombieType.Gargantuar, i, zombiePicker);
                 }
-                // Puts in at least 1 zombie of each allowed type... this seems wrong? would be >=10 diggers total, >=10 jacks in boxes, etc.
                 if ((mApp.IsAdventureMode() || mApp.IsQuickPlayMode()) && isBeforeLastWave)
                 {
                     PutInMissingZombies(i, zombiePicker);
@@ -6110,19 +6021,16 @@ namespace Lawn
                         }
                     }
                 }
-                // Here we go
                 while (zombiePicker.mZombiePoints > 0 && zombiePicker.mZombieCount < 50)
                 {
                     ZombieType theZombieType = PickZombieType(zombiePicker.mZombiePoints, i, zombiePicker);
                     PutZombieInWave(theZombieType, i, zombiePicker);
                 }
-                // Doesn't do anything?
                 int aZombiePoints = zombiePicker.mZombiePoints;
                 continue;
             }
         }
 
-        /**
         public void StopAllZombieSounds()
         {
             int count = mZombies.Count;
@@ -6744,7 +6652,6 @@ namespace Lawn
             PickSpecialGraveStone();
         }
 
-        **/
         public void InitZombieWaves()
         {
             Debug.ASSERT(true);
@@ -6758,7 +6665,6 @@ namespace Lawn
                 mChallenge.InitZombieWaves();
             }
             PickZombieWaves();
-            // It's going to be ok
             Debug.ASSERT(IsZombieWaveDistributionOk());
             mCurrentWave = 0;
             mTotalSpawnedWaves = 0;
@@ -6773,7 +6679,6 @@ namespace Lawn
             }
             else
             {
-                // 1800
                 mZombieCountDown = GameConstants.ZOMBIE_COUNTDOWN_FIRST_WAVE;
             }
             mZombieCountDownStart = mZombieCountDown;
@@ -6785,7 +6690,6 @@ namespace Lawn
             mLevelAwardSpawned = false;
         }
 
-        /**
         public void InitSurvivalStage()
         {
             RefreshSeedPacketFromCursor();
@@ -6818,11 +6722,9 @@ namespace Lawn
             return (int)(theRenderLayer + theLayerOffset + 10000 * theRow);
         }
 
-        **/
         public void UpdateGame()//3update
         {
             UpdateGameObjects();
-            /**
             if (StageHasFog() && mFogBlownCountDown > 0)
             {
                 float num = 1065f - LeftFogColumn() * 80f + Constants.BOARD_EXTRA_ROOM;
@@ -6843,11 +6745,10 @@ namespace Lawn
             {
                 return;
             }
-            **/
+            //mMainCounter += 3;
             mMainCounter++;
             UpdateSunSpawning();
             UpdateZombieSpawning();
-            /**
             UpdateIce();
             if (mIceTrapCounter > 0)
             {
@@ -6863,14 +6764,12 @@ namespace Lawn
                     }
                 }
             }
-
             if (mFogBlownCountDown > 0)
             {
                 //mFogBlownCountDown -= 3;
                 mFogBlownCountDown--;
             }
             //if (mMainCounter == 3)
-                        
             if (mMainCounter == 1)
             {
                 if (mApp.IsFirstTimeAdventureMode() && mLevel == 1)
@@ -6885,10 +6784,8 @@ namespace Lawn
                 }
             }
             UpdateProgressMeter();
-            **/
         }
 
-        /**
         public void InitZombieWavesForLevel(int aForLevel)
         {
             if (mApp.IsWhackAZombieLevel())
@@ -6907,7 +6804,6 @@ namespace Lawn
             }
         }
 
-        
         public uint SeedNotRecommendedForLevel(SeedType theSeedType)
         {
             uint result = 0U;
@@ -7418,8 +7314,6 @@ namespace Lawn
             return GridToPixelY(0, theRow);
         }
 
-
-        // This is just for audio :p
         public void NextWaveComing()
         {
             if (mCurrentWave + 1 == mNumWaves)
@@ -7738,16 +7632,13 @@ namespace Lawn
             }
             return true;
         }
-                **/
 
-        // Zomboys and plants dont seem to be griditems
         public void UpdateGridItems()//3update
         {
             int num = -1;
             GridItem gridItem = null;
             while (IterateGridItems(ref gridItem, ref num))
             {
-                /**
                 if (mEnableGraveStones && gridItem.mGridItemType == GridItemType.Gravestone && gridItem.mGridItemCounter < 100)
                 {
                     //gridItem.mGridItemCounter += 3;
@@ -7765,12 +7656,12 @@ namespace Lawn
                         gridItem.GridItemDie();
                     }
                 }
-                **/
                 gridItem.Update(/*0*/);
+                //gridItem.Update(1);
+                //gridItem.Update(2);
             }
         }
 
-        /**
         public GridItem AddAGraveStone(int theGridX, int theGridY)
         {
             if (!doAddGraveStones)
@@ -8094,7 +7985,7 @@ namespace Lawn
             }
             return num;
         }
-        **/
+
         public bool IsFlagWave(int theWaveNumber)
         {
             if (mApp.IsFirstTimeAdventureMode() && mLevel == 1)
@@ -8105,7 +7996,6 @@ namespace Lawn
             return theWaveNumber % numWavesPerFlag == numWavesPerFlag - 1;
         }
 
-        /**
         public void DrawHouseDoorTop(Graphics g)
         {
             if (mBackground == BackgroundType.Num1Day)
@@ -8195,12 +8085,8 @@ namespace Lawn
             return mBackground == BackgroundType.Num5Roof || mBackground == BackgroundType.Num6Boss;
         }
 
-        **/
         public void SpawnZombiesFromPool()
         {
-            // This shouldn't matter - 
-            // TODO: may need to double check that they only spawn on cleaner-having rows
-            /**
             if (mIceTrapCounter > 0)
             {
                 return;
@@ -8262,10 +8148,8 @@ namespace Lawn
                 num2 -= zombieDefinition.mZombieValue;
                 num2 = Math.Max(1, num2);
             }
-            **/
         }
 
-        /**
         public void SpawnZombiesFromSky()
         {
             if (mIceTrapCounter > 0)
@@ -8485,8 +8369,6 @@ namespace Lawn
             }
         }
 
-        **/
-        // Should be simple - just grabs a zombie and updates the zombie picker, adding to zombie counts and subtracting the relevant health
         public void PutZombieInWave(ZombieType theZombieType, int theWaveNumber, ZombiePicker theZombiePicker)
         {
             Debug.ASSERT(theWaveNumber < GameConstants.MAX_ZOMBIE_WAVES && theZombiePicker.mZombieCount < GameConstants.MAX_ZOMBIES_IN_WAVE);
@@ -8502,7 +8384,6 @@ namespace Lawn
             theZombiePicker.mAllWavesZombieTypeCount[(int)theZombieType]++;
         }
 
-        // Looks like it makes sure that zombies that are allowed have at least 1 in the wave.
         public void PutInMissingZombies(int theWaveNumber, ZombiePicker theZombiePicker)
         {
             for (ZombieType i = 0; i < ZombieType.ZombieTypesCount; i++)
@@ -8514,7 +8395,6 @@ namespace Lawn
             }
         }
 
-        /**
         public TRect GetShovelButtonRect()
         {
             TRect result = new TRect(Constants.UIShovelButtonPosition.X - Constants.Board_Offset_AspectRatio_Correction, Constants.UIShovelButtonPosition.Y, AtlasResources.IMAGE_SHOVELBANK.mWidth, AtlasResources.IMAGE_SHOVELBANK.mHeight);
@@ -8643,8 +8523,6 @@ namespace Lawn
             }
         }
 
-        **/
-        // Does what it says on the tin
         public int CountZombiesOnScreen()
         {
             int num = 0;
@@ -8660,7 +8538,6 @@ namespace Lawn
             return num;
         }
 
-        /**
         public int GetNumWavesPerSurvivalStage()
         {
             if (mApp.mGameMode == GameMode.ChallengeLastStand)
@@ -8682,19 +8559,14 @@ namespace Lawn
             Debug.ASSERT(false);
             return -666;
         }
-        **/
-       
-        // VERY troubling - looks like the only (variant) thing from attempt to attempt determining seed is id?
+
         public int GetLevelRandSeed()
         {
             int num = 101;
             int num2 = mBoardRandSeed + (int)mApp.mPlayerInfo.mId;
             if (mApp.IsAdventureMode() || mApp.IsQuickPlayMode())
             {
-                num2 += mLevel 
-                /**
-                + mApp.mPlayerInfo.mFinishedAdventure * num;
-                **/
+                num2 += mLevel + mApp.mPlayerInfo.mFinishedAdventure * num;
             }
             else if (mApp.IsScaryPotterLevel() || mApp.IsIZombieLevel())
             {
@@ -8708,7 +8580,6 @@ namespace Lawn
             return num2;
         }
 
-        /**
         public void AddBossRenderItem(RenderItem[] theRenderList, ref int theCurRenderItem, Zombie theBossZombie)
         {
             Debug.ASSERT(theCurRenderItem < 2048);
@@ -8944,15 +8815,12 @@ namespace Lawn
             int num4 = theMouseY + Constants.ZenGarden_GoldenWater_Size.Height;
             return GetTopPlantAt(thePlant.mPlantCol, thePlant.mRow, TopPlant.ZenToolOrder) == thePlant && (thePlant.mX + 40 >= num && thePlant.mX + 40 < num2 && thePlant.mY + 40 >= num3 && thePlant.mY + 40 < num4);
         }
-        **/
-        
-        // Yes, zombies walk in from the right in this level
+
         public bool StageHasZombieWalkInFromRight()
         {
             return !mApp.IsWhackAZombieLevel() && mApp.mGameMode != GameMode.ChallengeIce && !mApp.IsFinalBossLevel() && !mApp.IsIZombieLevel() && !mApp.IsSquirrelLevel() && !mApp.IsScaryPotterLevel() && mApp.mGameMode != GameMode.ChallengeZenGarden && mApp.mGameMode != GameMode.TreeOfWisdom && mApp.mGameMode != GameMode.ChallengeZombiquarium;
         }
 
-        // Yes, this just places a rake randomly
         public void PlaceRake()
         {
             if (mApp.mPlayerInfo.mPurchases[24] == 0)
@@ -9014,7 +8882,6 @@ namespace Lawn
             newGridItem.mGridItemState = GridItemState.RakeAttracting;
         }
 
-        /**
         public Reanimation CreateRakeReanim(float rakeX, float rakeY, int renderOrder)
         {
             Reanimation reanimation = mApp.AddReanimation(rakeX + 20f, rakeY, renderOrder, ReanimationType.Rake);
@@ -9104,9 +8971,7 @@ namespace Lawn
         {
             return mApp.mGameMode == GameMode.ChallengeLastStand && mChallenge.mSurvivalStage == GameConstants.LAST_STAND_FLAGS - 1;
         }
-        **/
-        
-        // this will be 10 for us
+
         public int GetNumWavesPerFlag()
         {
             if (mApp.IsFirstTimeAdventureMode() && mNumWaves < 10)
@@ -9116,7 +8981,6 @@ namespace Lawn
             return 10;
         }
 
-        /**
         public int GetCurrentPlantCost(SeedType theSeedType, SeedType theImitaterType)
         {
             int num = Plant.GetCost(theSeedType, theImitaterType);
@@ -9721,8 +9585,7 @@ namespace Lawn
             CheckForPostGameAchievements();
             mApp.UpdatePlayerProfileForFinishingLevel();
         }
-        **/
-        
+
         public void RemoveZombiesForRepick()
         {
             int count = mZombies.Count;
@@ -9736,7 +9599,6 @@ namespace Lawn
             }
         }
 
-        /**
         public bool IsSurvivalStageWithRepick()
         {
             return mApp.IsSurvivalMode() && !IsFinalSurvivalStage();
@@ -9824,9 +9686,6 @@ namespace Lawn
             return true;
         }
 
-        **/
-
-        // TODO: Shenanigans?
         public bool SaveToFile(Sexy.Buffer b)
         {
             LeaderBoardComm.RecordResult(LeaderboardGameMode.Adventure, (int)mApp.mPlayerInfo.mZombiesKilled);

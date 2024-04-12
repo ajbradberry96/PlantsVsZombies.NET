@@ -592,7 +592,6 @@ namespace Lawn
             {
                 PlaceLawnItems();
             }
-            // True
             if (!IsSurvivalRepick())
             {
                 for (int i = 0; i < Constants.MAX_GRIDSIZEY; i++)

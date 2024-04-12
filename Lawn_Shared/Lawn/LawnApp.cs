@@ -36,8 +36,6 @@ namespace Lawn
             theDialog.Resize((Constants.BOARD_WIDTH - theWidth) / 2, (Constants.BOARD_HEIGHT - theHeight) / 2, theWidth, theHeight);
         }
 
-        // Doesn't look like there's anything interesting here.
-        // Note: mAppRandSeed = DateTime.UtcNow.Millisecond;
         public LawnApp(Main m) : base(m)
         {
             mBoard = null;
@@ -105,7 +103,6 @@ namespace Lawn
             ReportAchievement.AchievementsChanged += ReportAchievement_AchievementsChanged;
         }
 
-        /**
         private void ReportAchievement_AchievementsChanged()
         {
             if (mPlayerInfo != null)
@@ -756,10 +753,7 @@ namespace Lawn
                 mBoard = null;
             }
         }
-        **/
 
-        // Doesn't look interesting
-        // Creates new board and assigns to mBoard
         public void MakeNewBoard()
         {
             KillBoard();
@@ -772,8 +766,6 @@ namespace Lawn
             SexyAppBase.XnaGame.CompensateForSlowUpdate();
         }
 
-        // Calls mboard.startlevel()
-        // Called after cutscene finishes
         public void StartPlaying()
         {
             KillSeedChooserScreen();
@@ -802,6 +794,8 @@ namespace Lawn
         internal override void NewGame()
         {
             mFirstTimeGameSelector = false;
+            mPlayerInfo.SetLevel(40);
+            mPlayerInfo.AddCoins(10000);
             MakeNewBoard();
             mBoard.InitLevel();
             mBoardResult = BoardResult.None;
@@ -810,7 +804,6 @@ namespace Lawn
             mBoard.mCutScene.StartLevelIntro();
         }
 
-        // For our purposes, calls MakeBoard() and LoadGame()
         public bool RestoreGame()
         {
             string savedGameName = LawnCommon.GetSavedGameName(mRestoreGameMode, (int)mPlayerInfo.mId);
@@ -1279,7 +1272,6 @@ namespace Lawn
             }
         }
 
-        // Nothing interesting here.
         public override void Init()
         {
             bool flag = mTodCheatKeys;
@@ -1288,7 +1280,6 @@ namespace Lawn
             mPlayTimeInactiveSession = 0;
             mBoardResult = BoardResult.None;
             mKilledYetiAndRestarted = false;
-            // Not interesting, don't worry
             base.Init();
             ReadRestoreInfo();
             if (!mResourceManager.ParseResourcesFile("Content/resources.xml"))
@@ -1372,7 +1363,6 @@ namespace Lawn
             perfTimer.Start();
         }
 
-        // Again, nothing interesting
         public override void Start()
         {
             if (mLoadingFailed)
@@ -1922,7 +1912,6 @@ namespace Lawn
             }
         }
 
-        // Checks if the board says it's done
         public void CheckForGameEnd()
         {
             if (mBoard == null || !mBoard.mLevelComplete)
